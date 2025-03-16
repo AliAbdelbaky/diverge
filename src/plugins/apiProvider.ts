@@ -1,7 +1,6 @@
 import {ofetch, type FetchResponse} from "ofetch";
 import {toast} from "vue-sonner";
 import {type App, ref} from "vue";
-import process from 'node:process'
 
 interface PluginOptions {
     BASE_URL: string;
@@ -15,6 +14,7 @@ export default {
         const {BASE_URL} = options;
 
         const handleErrors = async (error: FetchResponse<unknown>) => {
+            console.log("Error:", error);
             if (error.status === 401) {
                 toast.error("Unauthorized", {
                     description: "You are not authorized to access this resource",
@@ -55,7 +55,7 @@ function getDefaultHeaders(token?: string, _headers?: HeadersInit): HeadersInit 
 }
 
 function notifyPayload(body: unknown) {
-    if (process.env.NODE_ENV === "development") {
+    if (import.meta.env.MODE === "development") {
         console.log("Payload:", body);
     }
 }

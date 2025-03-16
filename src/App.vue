@@ -4,8 +4,11 @@ import {RouterView} from 'vue-router'
 
 const instance = getCurrentInstance();
 const testPlugin = async () => {
+  console.log('process', process.env.NODE_ENV);
+  console.log(import.meta.env.MODE);
+
   try {
-    const response = await instance?.proxy?.api_provider('https://jsonplaceholder.typicode.com/todos/1', {
+    const response = await instance?.proxy?.api_provider('https://jsonplaceholder.typicode.com/todos/22', {
       method: 'get',
     })
     console.log('response', response)

@@ -9,6 +9,9 @@
     }
   ],
   "compilerOptions": {
+    "types": ["node"],
+    "moduleResolution": "node",
+    "module": "ESNext",
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
