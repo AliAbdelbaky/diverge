@@ -4,7 +4,6 @@ import {RouterView} from 'vue-router'
 
 const instance = getCurrentInstance();
 const testPlugin = async () => {
-  console.log('process', process.env.NODE_ENV);
   console.log(import.meta.env.MODE);
 
   try {
