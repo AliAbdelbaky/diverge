@@ -1,3 +1,23 @@
 {
-  "hello": "مرحبا"
+  "hello": "مرحبا",
+  "getStarted": "البدء",
+  "homepage": "الصفحة الرئيسية",
+  "users": "المستخدمين",
+  "logout": "تسجيل الخروج",
+  "inputs": {
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور"
+  },
+  "login": {
+    "title": "تسجيل الدخول",
+    "submit": "إرسال"
+  },
+  "errors": {
+    "incorrect_data": "بيانات غير صحيحة",
+    "field:required": "هذا الحقل مطلوب",
+    "field:invalid:email": "البريد الإلكتروني غير صحيح",
+    "field:invalid:phonenumber": "رقم الهاتف غير صحيح",
+    "field:invalid:minLength": "يجب أن يحتوي الحقل على {length} حرفًا على الأقل",
+    "field:invalid:maxLength": "يجب ألا يتجاوز الحقل {length} حرفًا"
+  }
 }

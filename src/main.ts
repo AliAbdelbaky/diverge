@@ -12,7 +12,7 @@ const app = createApp(App)
 app.use(createPinia())
 app.use(router);
 app.use(i18n);
-app.use(ApiProvider, {BASE_URL: 'https://api.example.com'})
+app.use(ApiProvider, {BASE_URL: 'http://localhost:5000/api'})
 
 app.mount('#app')
 

@@ -1,3 +1,24 @@
 {
-  "hello": "Hello 22"
+  "hello": "Hello 22",
+  "getStarted": "Get Started",
+  "homepage": "Homepage",
+  "logout": "Logout",
+  "users": "Users",
+  "inputs": {
+    "email": "Email",
+    "password": "Password"
+  },
+  "login": {
+    "title": "Login",
+    "subtitle": "Login to your account",
+    "submit": "Submit"
+  },
+  "errors": {
+    "incorrect_data": "Incorrect data",
+    "field:required": "this field is required",
+    "field:invalid:email": "email is invalid",
+    "field:invalid:phonenumber": "phone number is invalid",
+    "field:invalid:minLength": "Field must contain at least {length} character(s)",
+    "field:invalid:maxLength": "Field must contain at most {length} character(s)"
+  }
 }

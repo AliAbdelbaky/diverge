@@ -4,8 +4,9 @@ import ar from '@/locales/ar-eg.json';
 
 const i18n = createI18n({
     legacy: false,
-    locale: 'en',
+    locale: localStorage?.getItem("locale") || "en",
     fallbackLocale: 'ar',
     messages: {en, ar},
+    globalInjection: true,
 });
 export default i18n;

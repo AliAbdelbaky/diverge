@@ -1,34 +1,19 @@
 <script setup lang="ts">
-import {getCurrentInstance, onMounted} from 'vue'
+import {onMounted} from 'vue'
 import {RouterView} from 'vue-router'
+import langHandler, {type Lang} from "@/composables/langHandler.ts";
+import {Toaster} from 'vue-sonner'
 
-const instance = getCurrentInstance();
-const testPlugin = async () => {
-  console.log(import.meta.env.MODE);
 
-  try {
-    const response = await instance?.proxy?.api_provider('https://jsonplaceholder.typicode.com/todos/22', {
-      method: 'get',
-    })
-    console.log('response', response)
-  } catch (e) {
-    console.log('error', e)
-  }
-}
+const {setLocale} = langHandler()
 onMounted(() => {
-  testPlugin()
+  setLocale((localStorage.getItem('locale') || 'en') as Lang)
 })
-
-
 </script>
 
 <template>
-  <div>
-    <h1 class="text-3xl font-bold underline">
-      {{ $t('hello') }}
-    </h1>
-    <router-view/>
-  </div>
+  <Toaster/>
+  <router-view/>
 </template>
 
 <style scoped>

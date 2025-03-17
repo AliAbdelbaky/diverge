@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import MainComp from '@/components/auth/login.vue'
 </script>
 
 <template>
-  <h1>login</h1>
+  <MainComp/>
 </template>
 
 <style scoped>
