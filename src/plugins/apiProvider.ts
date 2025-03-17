@@ -1,6 +1,6 @@
 import {ofetch, type FetchResponse} from "ofetch";
 import {toast} from "vue-sonner";
-import {type App, ref} from "vue";
+import {type App, computed} from "vue";
 
 interface PluginOptions {
     BASE_URL: string;
@@ -10,11 +10,11 @@ let api_provider: ReturnType<typeof ofetch.create>; // Ensure type safety
 
 export default {
     install: (app: App, options: PluginOptions) => {
-        const AUTH_COOKIE = ref("asdas");
+        const AUTH_COOKIE = computed(() => localStorage.getItem("token") || '');
         const {BASE_URL} = options;
 
         const handleErrors = async (error: FetchResponse<unknown>) => {
-            console.log("Error:", error);
+            console.log("Error:", toast);
             if (error.status === 401) {
                 toast.error("Unauthorized", {
                     description: "You are not authorized to access this resource",
@@ -24,6 +24,12 @@ export default {
                 });
                 return app.config.globalProperties.$router?.push("/login");
             }
+            toast.error("Unauthorized", {
+                description: "You are not authorized to access this resource",
+                position: "top-center",
+                important: true,
+                richColors: true,
+            });
         };
 
         api_provider = ofetch.create({
@@ -49,7 +55,7 @@ function getDefaultHeaders(token?: string, _headers?: HeadersInit): HeadersInit 
     return {
         ..._headers,
         Accept: "application/json",
-        "Accept-Language": "en",
+        "Accept-Language": localStorage.getItem("locale") || "en",
         Authorization: token ? `Bearer ${token}` : '',
     };
 }
