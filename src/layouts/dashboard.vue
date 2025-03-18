@@ -16,7 +16,6 @@ import {
 } from '@/components/ui/sidebar'
 import {useRoute} from "vue-router";
 import {computed} from "vue";
-import {useI18n} from "vue-i18n";
 import {Button} from "@/components/ui/button";
 import langHandler from "@/composables/langHandler.ts";
 
@@ -41,7 +40,7 @@ const breadcrumbs = computed(() => {
 })
 
 
-const {setLocale,locale} = langHandler()
+const {setLocale, locale} = langHandler()
 </script>
 <template>
   <SidebarProvider>
@@ -69,7 +68,7 @@ const {setLocale,locale} = langHandler()
               class="hidden md:block"
               @click="setLocale(locale === 'en' ? 'ar': 'en')"
           >
-            {{ locale === 'en' ? 'ar': 'en' }}
+            {{ locale === 'en' ? 'ar' : 'en' }}
           </Button>
 
         </div>

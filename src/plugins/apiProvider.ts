@@ -24,31 +24,26 @@ export default {
                 });
                 return app.config.globalProperties.$router?.push("/login");
             }
-            toast.error("Unauthorized", {
-                description: "You are not authorized to access this resource",
-                position: "top-center",
-                important: true,
-                richColors: true,
-            });
         };
 
         api_provider = ofetch.create({
             baseURL: BASE_URL,
             onRequest({options}) {
                 options.headers = getDefaultHeaders(AUTH_COOKIE.value, options.headers);
-                notifyPayload(options.body);
+                if (import.meta.env.MODE === "development") {
+                    notifyPayload(options.body);
+                }
             },
             async onResponseError({response}) {
                 await handleErrors(response);
                 throw response;
             },
         });
-
-        app.config.globalProperties.api_provider = api_provider; // Type-safe addition
+// @ts-ignore
+        app.config.globalProperties.api_provider = api_provider;
     },
 };
 
-// Export `api_provider` for direct import usage
 export {api_provider};
 
 function getDefaultHeaders(token?: string, _headers?: HeadersInit): HeadersInit {
@@ -61,7 +56,5 @@ function getDefaultHeaders(token?: string, _headers?: HeadersInit): HeadersInit 
 }
 
 function notifyPayload(body: unknown) {
-    if (import.meta.env.MODE === "development") {
-        console.log("Payload:", body);
-    }
+    console.log("Payload:", body);
 }

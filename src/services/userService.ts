@@ -1,6 +1,6 @@
 import { getCurrentInstance } from "vue";
+import { api_provider } from "@/plugins/apiProvider";
 
-// Define IUser Interface
 export interface IUser {
     id: string;
     name: string;
@@ -13,57 +13,57 @@ export interface IUser {
     registeredAt: Date;
 }
 
-// Define response type for getAllUsers
 export interface IUserResponse {
     total: number;
     users: IUser[];
 }
 
-// Define type for new user creation
 export interface INewUser {
     name: string;
     email: string;
     role: "Admin" | "Editor" | "Viewer";
 }
 
-// 📌 Get all users (with pagination & optional role filtering)
 export const getAllUsers = async (
     page: number = 1,
     limit: number = 10,
     role?: string
-): Promise<IUserResponse> => {
+) => {
     const instance = getCurrentInstance();
     let query = `/users?page=${page}&limit=${limit}`;
     if (role) query += `&role=${role}`;
-    return instance?.proxy?.api_provider(query);
+    return instance?.proxy?.api_provider<IUserResponse>(query);
 };
 
-// 📌 Get a specific user by ID
-export const getUserById = async (id: string): Promise<IUser> => {
+export const getUserById = async (id: string) => {
     const instance = getCurrentInstance();
     return instance?.proxy?.api_provider(`/users/${id}`);
 };
 
-// 📌 Create a new user
-export const createUser = async (data: INewUser): Promise<IUser> => {
-    const instance = getCurrentInstance();
-    return instance?.proxy?.api_provider(`/users`, data);
+export const createUser = async (user: INewUser) => {
+    return await api_provider<IUser>("/users", {
+        method: "POST",
+        body: JSON.stringify(user),
+        headers: { "Content-Type": "application/json" },
+    });
 };
 
-// 📌 Update a user by ID
-export const editUser = async (id: string, data: Partial<IUser>): Promise<IUser> => {
-    const instance = getCurrentInstance();
-    return instance?.proxy?.api_provider(`/users/${id}`, data);
+
+export const updateUser = async (id: string, data: Partial<IUser>) => {
+    return await api_provider<IUser>(`/users/${id}`, {
+        method: "PUT",
+        body: JSON.stringify(data),
+        headers: { "Content-Type": "application/json" },
+    });
 };
 
-// 📌 Delete a user by ID
-export const deleteUser = async (id: string): Promise<void> => {
+
+export const deleteUser = async (id: string) => {
     const instance = getCurrentInstance();
     return instance?.proxy?.api_provider(`/users/${id}`);
 };
 
-// 📌 Get available roles
-export const getRoles = async (): Promise<string[]> => {
+export const getRoles = async (): Promise<unknown> => {
     const instance = getCurrentInstance();
     return instance?.proxy?.api_provider(`/roles`);
 };

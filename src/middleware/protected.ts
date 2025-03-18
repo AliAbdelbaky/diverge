@@ -1,7 +1,10 @@
 import {getToken, destroyToken} from '@/services/jwtService.ts';
 import {useAuthStore} from '@/store/auth.ts';
+import type {RouteLocationNormalized, RouteLocationNormalizedLoaded} from "vue-router";
 
-export default async function (_, _s, next) {
+export default async function (to: RouteLocationNormalized, from: RouteLocationNormalizedLoaded, next: (str?: string) => void) {
+
+    console.log("Protected Middleware", to, from, next)
     const authStore = useAuthStore();
     const token = getToken();
 
@@ -14,7 +17,7 @@ export default async function (_, _s, next) {
     authStore.token = getToken();
     authStore.isAuth = true;
     // const { roles } = to.meta;
-    const res = authStore.setAuth(token);
+    const res = await authStore.setAuth(token);
     if (!res) {
         destroyToken();
         next('/auth/login');

@@ -23,7 +23,7 @@ export const useAuthStore = defineStore("auth", {
     }),
 
     actions: {
-        async login(userData: { email: string; password: string }): Promise<{
+        async login(userData: { email?: string; password?: string; }): Promise<{
             data?: IUser;
             error?: string
         }> {
