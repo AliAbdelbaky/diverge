@@ -28,19 +28,19 @@ export const getAllUsers = async (
     page: number = 1,
     limit: number = 10,
     role?: string
-): Promise<IUserResponse> => {
+) => {
     const instance = getCurrentInstance();
     let query = `/users?page=${page}&limit=${limit}`;
     if (role) query += `&role=${role}`;
-    return instance?.proxy?.api_provider(query);
+    return instance?.proxy?.api_provider<IUserResponse>(query);
 };
 
-export const getUserById = async (id: string): Promise<IUser> => {
+export const getUserById = async (id: string) => {
     const instance = getCurrentInstance();
     return instance?.proxy?.api_provider(`/users/${id}`);
 };
 
-export const createUser = async (user: INewUser): Promise<IUser> => {
+export const createUser = async (user: INewUser) => {
     return await api_provider<IUser>("/users", {
         method: "POST",
         body: JSON.stringify(user),
@@ -49,7 +49,7 @@ export const createUser = async (user: INewUser): Promise<IUser> => {
 };
 
 
-export const updateUser = async (id: string, data: Partial<IUser>): Promise<IUser> => {
+export const updateUser = async (id: string, data: Partial<IUser>) => {
     return await api_provider<IUser>(`/users/${id}`, {
         method: "PUT",
         body: JSON.stringify(data),
@@ -58,7 +58,7 @@ export const updateUser = async (id: string, data: Partial<IUser>): Promise<IUse
 };
 
 
-export const deleteUser = async (id: string): Promise<void> => {
+export const deleteUser = async (id: string) => {
     const instance = getCurrentInstance();
     return instance?.proxy?.api_provider(`/users/${id}`);
 };
